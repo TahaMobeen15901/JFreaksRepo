@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Borrowed Books</title>
+  <!-- Add Bootstrap CSS link -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h3 class="my-4">Return or Renew Here</h3>
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th>ISBN</th>
+      <th>Title</th>
+      <th>Return</th>
+      <th>Renew</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="Book: ${Books}">
+      <td th:text="${Book.isbn}"></td>
+      <td th:text="${Book.title}"></td>
+      <td>
+        <form action="#" th:action="@{/active/return(bookISBN=${Book.isbn})}" method="POST">
+          <button type="submit" class="btn btn-primary">Return</button>
+        </form>
+      </td>
+      <td>
+        <form action="#" th:action="@{/active/renew(bookISBN=${Book.isbn})}" method="POST">
+          <button type="submit" class="btn btn-primary">Renew</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <hr>
+  <a th:href="@{/active/home}" class="btn btn-primary">Back to Home</a>
+</div>
+
+<!-- Add Bootstrap JS and jQuery links -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

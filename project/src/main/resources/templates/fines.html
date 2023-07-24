@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Fines Details</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h3 class="my-4">Your Fines Details</h3>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Transaction ID</th>
+            <th>Fine</th>
+            <th>Pay and Return</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="fine: ${Fines}">
+            <td th:text="${fine.key.id}"></td>
+            <td th:text="${fine.value}"></td>
+            <td>
+                <form action="#" th:action="@{/active/pay-and-return(transactionId=${fine.key.id})}" method="POST">
+                    <button type="submit" class="btn btn-primary">Pay and Return</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <a th:href="@{/active/home}" class="btn btn-primary">Back to Home</a>
+</div>
+
+<!-- Add Bootstrap JS and jQuery links -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

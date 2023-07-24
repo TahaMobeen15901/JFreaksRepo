@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container vw-100">
+    <div class="my-4 d-flex">
+        <h3>
+            <span sec:authentication="principal.username"></span>
+        </h3>
+        <h3>
+            <span sec:authentication="principal.authorities"></span>
+        </h3>
+    </div>
+    <p>
+        <a th:href="@{/admin/show-new-book-form}" class="btn btn-primary">Create a Book</a>
+    </p>
+
+    <div class="my-4">
+        <h3>Books</h3>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="Book : ${Books}">
+                <td th:text="${Book.isbn}" />
+                <td th:text="${Book.title}" />
+                <td th:text="${Book.status}"></td>
+                <td>
+                    <div class="d-flex">
+                        <form th:action="@{/admin/show-update-book-form}" method="get" class="mr-1" th:if="${Book.status == 'a'}">
+                            <input type="hidden" name="bookISBN" th:value="${Book.isbn}">
+                            <button type="submit" class="btn btn-info btn-sm">Update</button>
+                        </form>
+
+                        <a th:href="@{/admin/delete(bookISBN=${Book.isbn})}"
+                           class="btn btn-danger btn-sm"
+                           onclick="if (!(confirm('Are you sure you want to delete this book?'))) return false"
+                           th:if="${Book.status == 'a'}">
+                            Delete
+                        </a>
+                    </div>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="my-4">
+        <h3>Transactions</h3>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>UserName</th>
+                <th>ISBN</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Fine</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="Transaction : ${Transactions}">
+                <td th:text="${Transaction.id}" />
+                <td th:text="${Transaction.member}" />
+                <td th:text="${Transaction.book}" />
+                <td th:text="${Transaction.dateOfTransaction}" />
+                <td th:text="${Transaction.type}" />
+                <td th:if="${Transaction.fine == -1}">Not Applicable</td>
+                <td th:unless="${Transaction.fine == -1}" th:text="${Transaction.fine}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="my-4">
+        <form action="#" th:action="@{/logout}" method="POST">
+            <button type="submit" class="btn btn-primary">Logout</button>
+        </form>
+    </div>
+</div>
+
+<!-- Add Bootstrap JS and jQuery links -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

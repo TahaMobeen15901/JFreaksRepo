@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Home Page</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="my-4 d-flex">
+        <h3>
+            <span sec:authentication="principal.username"></span>
+        </h3>
+        <h3>
+            <span sec:authentication="principal.authorities"></span>
+        </h3>
+    </div>
+    <div class="my-4">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a th:href="@{/active/books}">To Get All Available Books Click Here</a>
+            </li>
+            <li class="list-group-item">
+                <h3>Search For Available Books Here </h3>
+                <form action="#" th:action="@{/active/search}" method="POST" class="form-inline">
+                    <input type="text" name="theSearch" class="form-control mr-2" placeholder="Search">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </li>
+            <li class="list-group-item">
+                <a th:href="@{/active/borrowed-books}">Borrowed Books</a>
+            </li>
+            <li class="list-group-item">
+                <a th:href="@{/active/update-member-page}">Update user Info</a>
+            </li>
+            <li class="list-group-item">
+                <a th:href="@{/active/fines}">See your pending payment details</a>
+            </li>
+        </ul>
+    </div>
+    <div class="my-4">
+        <form action="#" th:action="@{/logout}" method="POST">
+            <button type="submit" class="btn btn-primary">Logout</button>
+        </form>
+    </div>
+</div>
+
+<!-- Add Bootstrap JS and jQuery links -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  
+    <title>Save Book</title>
+  </head>
+  <body>
+    <div class="container">
+
+      <h3>New Book</h3>
+      <hr>
+
+      <p class="h4 mb-4">Save Book</p>
+
+      <form action="#" th:action="@{/admin/book}"
+            th:object="${Book}" method="POST">
+        <div th:if="${Book.isbn > 0}">
+          <label>ISBN</label>
+          <input type="text" th:field="*{isbn}" class="form-control mb-4 w-25 bg-dark text-light" readonly>
+        </div>
+        <label>Title</label>
+        <input type="text" th:field="*{title}" class="form-control mb-4 w-25" placeholder="Title">
+        <p th:if="${#fields.hasErrors('title')}" class="text-danger" th:errors="*{title}">Title Validation error</p>
+        <label>Author</label>
+        <input type="text" th:field="*{author}" class="form-control mb-4 w-25" placeholder="Author">
+        <p th:if="${#fields.hasErrors('author')}" class="text-danger" th:errors="*{author}">Author Validation error</p>
+        <label>Publisher</label>
+        <input type="text" th:field="*{publisher}" class="form-control mb-4 w-25" placeholder="Publisher">
+        <p th:if="${#fields.hasErrors('publisher')}" class="text-danger" th:errors="*{publisher}">Publisher Validation error</p>
+        <label>Edition</label>
+        <input type="number" th:field="*{edition}" min="1" th:value="${Book.edition}" class="form-control mb-4 w-25">
+        <button type="submit" class="btn btn-info col-2">Save</button>
+
+      </form>
+      <hr>
+      <a th:href="@{/admin/home}">Back to Home</a>
+    </div>
+  </body>
+</html>
