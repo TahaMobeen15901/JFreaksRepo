@@ -21,6 +21,12 @@
         <a th:href="@{/admin/show-new-book-form}" class="btn btn-primary">Create a Book</a>
     </p>
 
+    <div class="my-4 alert alert-success" th:if="${param.success}">
+        Operation was successful!
+    </div>
+    <div th:if="${ErrorMessage}" class="alert alert-danger">
+        <p th:text="${ErrorMessage}"></p>
+    </div>
     <div class="my-4">
         <h3>Books</h3>
         <table class="table table-bordered table-striped">
@@ -39,7 +45,8 @@
                 <td th:text="${Book.status}"></td>
                 <td>
                     <div class="d-flex">
-                        <form th:action="@{/admin/show-update-book-form}" method="get" class="mr-1" th:if="${Book.status == 'a'}">
+                        <form th:action="@{/admin/show-update-book-form}" method="get" class="mr-1"
+                              th:if="${Book.status.toString() == 'AVAILABLE'}">
                             <input type="hidden" name="bookISBN" th:value="${Book.isbn}">
                             <button type="submit" class="btn btn-info btn-sm">Update</button>
                         </form>
@@ -47,7 +54,7 @@
                         <a th:href="@{/admin/delete(bookISBN=${Book.isbn})}"
                            class="btn btn-danger btn-sm"
                            onclick="if (!(confirm('Are you sure you want to delete this book?'))) return false"
-                           th:if="${Book.status == 'a'}">
+                           th:if="${Book.status.toString() == 'AVAILABLE'}">
                             Delete
                         </a>
                     </div>

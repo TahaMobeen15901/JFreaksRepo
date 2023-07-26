@@ -8,21 +8,20 @@ import java.util.Map;
 public interface BookService {
     void save(Book book);
 
-    Map<String,List<Book>> Search(String query);
+    Map<String,List<Book>> SearchByUserQuery(String query);
 
-    List<Book> findAllAvailable();
+    List<Book> findAllAvailableBooks();
 
-    List<Book> findAll();
+    List<Book> findAllBooks();
 
-    Book Search(int isbn);
+    Book SearchByUserQuery(int isbn);
 
     Book find(int isbn);
 
     void delete(int isbn);
 
-    boolean returnBook(int isbn);
+    void returnBook(Book book);
 
-    boolean borrow(int isbn);
+    void borrow(Book book);
 
-    boolean borrowFirstTime(int isbn);
 }

@@ -10,15 +10,15 @@ public class BookDTO {
     private int isbn;
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z]+( [a-zA-Z]*)?$")
+    @Pattern(regexp = "^[a-zA-Z]+( [a-zA-Z]+)*$")
     private String title;
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z]+( [a-zA-Z]*)?$")
+    @Pattern(regexp = "^[a-zA-Z]+( [a-zA-Z]+)*$")
     private String author;
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z]+( [a-zA-Z]*)?$")
+    @Pattern(regexp = "^[a-zA-Z]+( [a-zA-Z]+)*$")
     private String publisher;
 
     private int edition;

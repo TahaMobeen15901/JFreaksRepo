@@ -3,13 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Borrowed Books</title>
-  <!-- Add Bootstrap CSS link -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
   <h3 class="my-4">Return or Renew Here</h3>
-  <table class="table">
+  <div class="my-4 alert alert-success" th:if="${param.success}">
+    Operation was successful!
+  </div>
+  <div th:if="${ErrorMessage}" class="alert alert-danger">
+    <p th:text="${ErrorMessage}"></p>
+  </div>
+  <table class="table table-bordered table-striped">
     <thead class="thead-dark">
     <tr>
       <th>ISBN</th>

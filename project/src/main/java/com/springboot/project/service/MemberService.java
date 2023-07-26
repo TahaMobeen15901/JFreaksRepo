@@ -13,7 +13,7 @@ public interface MemberService {
 
     void deleteMember(Member member);
 
-    Member findUserByUserName(String userName);
+    Member findByUserName(String userName);
 
     List<MemberDTO> findAllMembers();
 }

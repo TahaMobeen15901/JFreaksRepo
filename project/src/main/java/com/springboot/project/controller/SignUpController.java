@@ -24,7 +24,7 @@ public class SignUpController {
     }
 
     @GetMapping("/show-signup-page")
-    public String SignUp(Model model){
+    public String signUp(Model model){
         MemberDTO member = new MemberDTO();
         model.addAttribute("Member", member);
         return "signup";
@@ -32,9 +32,7 @@ public class SignUpController {
 
     @PostMapping("/register-user")
     public String registration(@Valid @ModelAttribute("Member") MemberDTO memberDTO, BindingResult result, Model model){
-
-
-        Member existing = memberService.findUserByUserName(memberDTO.getUserName());
+        Member existing = memberService.findByUserName(memberDTO.getUserName());
         if((existing != null) && (existing.getUserName() != null) && !(existing.getUserName().isEmpty())){
             result.rejectValue("userName", null, "There is already an account registered with the same username");
         }
@@ -43,9 +41,13 @@ public class SignUpController {
             model.addAttribute("Member", memberDTO);
             return "signup";
         }
-        System.out.println(memberDTO);
-        memberService.saveMember(memberDTO);
-        return "redirect:/show-login-page?success";
+        try{
+            memberService.saveMember(memberDTO);
+        } catch (Exception e){
+            return "redirect:/show-login-page?errorMessage=Error: Can't Sign Up right now!";
+        }
+
+        return "redirect:/show-login-page?success=true";
     }
 
 }

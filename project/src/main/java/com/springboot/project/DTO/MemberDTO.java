@@ -14,7 +14,7 @@ public class MemberDTO {
     private String userName;
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z]+( [a-zA-Z]*)?$")
+    @Pattern(regexp = "^[a-zA-Z]+( [a-zA-Z]+)*$")
     private String name;
 
 
@@ -26,6 +26,7 @@ public class MemberDTO {
     private int enabled;
 
 
+    @NotNull
     private LocalDate dob;
 
 

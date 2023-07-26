@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
         rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
@@ -9,42 +9,39 @@
   <title>Sign Up Form</title>
 </head>
 <body>
-<div class="container">
-  <h3 class="my-4">Sign Up Page</h3>
-  <form action="#" th:object="${Member}" th:action="@{/register-user}" method="POST">
-    <!-- ... -->
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input type="text" id="name" class="form-control" th:field="*{name}"/>
-      <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}">Name Validation error</p>
+<div class="container my-4">
+  <h3 class="mb-4">Sign Up Page</h3>
+  <form th:object="${Member}" th:action="@{/register-user}" method="POST">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" id="name" class="form-control" th:field="*{name}" required/>
+      <p th:if="${#fields.hasErrors('name')}" class="text-danger">Name Validation error</p>
     </div>
-    <div class="form-group">
-      <label for="dob">Date of Birth</label>
-      <input type="date" id="dob" class="form-control" th:field="*{dob}"/>
-      <p th:if="${#fields.hasErrors('dob')}" class="text-danger" th:errors="*{dob}">Date Of Birth Validation error</p>
+    <div class="mb-3">
+      <label for="dob" class="form-label">Date of Birth</label>
+      <input type="date" id="dob" class="form-control" th:field="*{dob}" required/>
+      <p th:if="${#fields.hasErrors('dob')}" class="text-danger">Date Of Birth Validation error</p>
     </div>
-    <div class="form-group">
-      <label for="phone">Phone #</label>
-      <input type="text" id="phone" class="form-control" th:field="*{phone}"/>
-      <p th:if="${#fields.hasErrors('phone')}" class="text-danger" th:errors="*{phone}">Phone Number Validation error</p>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone #</label>
+      <input type="text" id="phone" class="form-control" th:field="*{phone}" required/>
+      <p th:if="${#fields.hasErrors('phone')}" class="text-danger">Phone Number Validation error</p>
     </div>
-    <div class="form-group">
-      <label for="userName">Username</label>
-      <input type="text" id="userName" class="form-control" th:field="*{userName}"/>
-      <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}">Username Validation error</p>
+    <div class="mb-3">
+      <label for="userName" class="form-label">Username</label>
+      <input type="text" id="userName" class="form-control" th:field="*{userName}" required/>
+      <p th:if="${#fields.hasErrors('userName')}" class="text-danger">Username Validation error</p>
     </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" class="form-control" th:field="*{password}"/>
-      <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}">Password Validation error</p>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" id="password" class="form-control" th:field="*{password}" required/>
+      <p th:if="${#fields.hasErrors('password')}" class="text-danger">Password Validation error</p>
     </div>
-    <!-- ... -->
-    <div>
-      <input type="hidden" th:field="*{enabled}" value="1">
-    </div>
-    <button type="submit" class="btn btn-primary" >Submit</button>
+    <input type="hidden" th:field="*{enabled}" value="1">
+
+    <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-  <a th:href="@{/show-login-page}" class="btn btn-link mt-3"> Click Here To Login</a>
+  <a th:href="@{/show-login-page}" class="btn btn-link mt-3">Click Here To Login</a>
 </div>
 
 <!-- Add Bootstrap JS and jQuery links -->

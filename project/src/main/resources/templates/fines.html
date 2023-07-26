@@ -9,6 +9,12 @@
 <body>
 <div class="container">
     <h3 class="my-4">Your Fines Details</h3>
+    <div class="my-4 alert alert-success" th:if="${param.success}">
+        Operation was successful!
+    </div>
+    <div th:if="${ErrorMessage}" class="alert alert-danger">
+        <p th:text="${ErrorMessage}"></p>
+    </div>
     <table class="table">
         <thead class="thead-dark">
         <tr>

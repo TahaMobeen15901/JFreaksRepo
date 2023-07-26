@@ -12,7 +12,7 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "book")
@@ -22,13 +22,13 @@ public class Transaction {
     @JoinColumn(name = "member")
     private Member member;
 
-    @Column(name = "type")
-    private char type;
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
 
     @Column(name = "dot")
     private LocalDate dateOfTransaction;
 
-    public Transaction(Book book, Member member, char type) {
+    public Transaction(Book book, Member member, TransactionType type) {
         this.book = book;
         this.member = member;
         dateOfTransaction = LocalDate.now();
@@ -38,11 +38,11 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -62,11 +62,11 @@ public class Transaction {
         this.member = member;
     }
 
-    public char getType() {
+    public TransactionType getType() {
         return type;
     }
 
-    public void setType(char type) {
+    public void setType(TransactionType type) {
         this.type = type;
     }
 

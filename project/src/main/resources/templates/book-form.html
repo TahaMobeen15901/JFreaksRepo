@@ -18,24 +18,24 @@
       <hr>
 
       <p class="h4 mb-4">Save Book</p>
-
       <form action="#" th:action="@{/admin/book}"
             th:object="${Book}" method="POST">
         <div th:if="${Book.isbn > 0}">
           <label>ISBN</label>
           <input type="text" th:field="*{isbn}" class="form-control mb-4 w-25 bg-dark text-light" readonly>
+          <p th:if="${#fields.hasErrors('isbn')}" class="text-danger">ISBN Validation error</p>
         </div>
         <label>Title</label>
         <input type="text" th:field="*{title}" class="form-control mb-4 w-25" placeholder="Title">
-        <p th:if="${#fields.hasErrors('title')}" class="text-danger" th:errors="*{title}">Title Validation error</p>
+        <p th:if="${#fields.hasErrors('title')}" class="text-danger">Title Validation error</p>
         <label>Author</label>
         <input type="text" th:field="*{author}" class="form-control mb-4 w-25" placeholder="Author">
-        <p th:if="${#fields.hasErrors('author')}" class="text-danger" th:errors="*{author}">Author Validation error</p>
+        <p th:if="${#fields.hasErrors('author')}" class="text-danger" >Author Validation error</p>
         <label>Publisher</label>
         <input type="text" th:field="*{publisher}" class="form-control mb-4 w-25" placeholder="Publisher">
-        <p th:if="${#fields.hasErrors('publisher')}" class="text-danger" th:errors="*{publisher}">Publisher Validation error</p>
+        <p th:if="${#fields.hasErrors('publisher')}" class="text-danger">Publisher Validation error</p>
         <label>Edition</label>
-        <input type="number" th:field="*{edition}" min="1" th:value="${Book.edition}" class="form-control mb-4 w-25">
+        <input type="number" th:field="*{edition}" min="1" class="form-control mb-4 w-25">
         <button type="submit" class="btn btn-info col-2">Save</button>
 
       </form>

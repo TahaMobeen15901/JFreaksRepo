@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Searched books</title>
-    <!-- Add Bootstrap CSS link -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -12,7 +10,7 @@
     <ul class="list-unstyled">
         <li th:each="bookList: ${BooksLists}">
             <h3 th:text="${bookList.key}"></h3>
-            <table class="table" th:if="${not #lists.isEmpty(bookList.value)}">
+            <table class="table table-bordered table-striped" th:if="${not #lists.isEmpty(bookList.value)}">
                 <thead class="thead-dark">
                 <tr>
                     <th>ISBN</th>

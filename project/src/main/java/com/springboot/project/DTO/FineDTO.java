@@ -1,6 +1,8 @@
 package com.springboot.project.DTO;
 
 
+import com.springboot.project.entity.TransactionType;
+
 import java.time.LocalDate;
 
 public class FineDTO {
@@ -11,13 +13,13 @@ public class FineDTO {
     private String member;
 
 
-    private char type;
+    private TransactionType type;
 
     private LocalDate dateOfTransaction;
 
     private double fine;
 
-    public FineDTO(long id, int book, String member, char type, LocalDate dateOfTransaction, double fine) {
+    public FineDTO(long id, int book, String member, TransactionType type, LocalDate dateOfTransaction, double fine) {
         this.id = id;
         this.book = book;
         this.member = member;
@@ -53,11 +55,11 @@ public class FineDTO {
         this.member = member;
     }
 
-    public char getType() {
+    public TransactionType getType() {
         return type;
     }
 
-    public void setType(char type) {
+    public void setType(TransactionType type) {
         this.type = type;
     }
 

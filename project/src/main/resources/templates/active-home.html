@@ -18,6 +18,12 @@
             <span sec:authentication="principal.authorities"></span>
         </h3>
     </div>
+    <div class="my-4 alert alert-success" th:if="${param.success}">
+        Operation was successful!
+    </div>
+    <div th:if="${ErrorMessage}" class="alert alert-danger">
+        <p th:text="${ErrorMessage}"></p>
+    </div>
     <div class="my-4">
         <ul class="list-group">
             <li class="list-group-item">

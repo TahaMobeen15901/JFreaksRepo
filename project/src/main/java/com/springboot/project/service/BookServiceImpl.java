@@ -1,9 +1,13 @@
 package com.springboot.project.service;
 
 
-import com.springboot.project.Dao.BookDao;
+import com.springboot.project.Dao.BookRepository;
 import com.springboot.project.entity.Book;
+import com.springboot.project.entity.BookStatus;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -11,76 +15,74 @@ import java.util.*;
 @Service
 public class BookServiceImpl implements BookService{
 
-    BookDao bookDao;
+    private final BookRepository bookRepository;
 
     @Autowired
-    public  BookServiceImpl(BookDao bookDao){
-        this.bookDao = bookDao;
+    public  BookServiceImpl(BookRepository bookRepository){
+        this.bookRepository = bookRepository;
     }
     @Override
-    public List<Book> findAllAvailable() {
-        return bookDao.findAllAvailable();
-    }
-
-    @Override
-    public List<Book> findAll() {
-        return bookDao.findAll();
+    public List<Book> findAllAvailableBooks() {
+        return bookRepository.findByStatus(BookStatus.AVAILABLE);
     }
 
     @Override
-    public void save(Book book) {
-        bookDao.save(book);
+    public List<Book> findAllBooks() {
+         return bookRepository.findAll();
     }
 
     @Override
-    public Map<String, List<Book>> Search(String query) {
+    @Transactional
+    public void save(Book book){
+        bookRepository.save(book);
+    }
+
+    @Override
+    public Map<String, List<Book>> SearchByUserQuery(String query) {
         Map<String, List<Book>> hashMap = new HashMap<>();
-        hashMap.put("author", bookDao.SearchByAuthor(query));
-        hashMap.put("title", bookDao.SearchByTitle(query));
-        hashMap.put("publisher", bookDao.SearchByPublisher(query));
+        hashMap.put("author", bookRepository.findByAuthorContainingAndStatus(query, BookStatus.AVAILABLE));
+        hashMap.put("publisher", bookRepository.findByPublisherContainingAndStatus(query, BookStatus.AVAILABLE));
+        hashMap.put("title", bookRepository.findByTitleContainingAndStatus(query, BookStatus.AVAILABLE));
         return hashMap;
     }
 
     @Override
-    public Book Search(int isbn) {
-        return bookDao.SearchByISBN(isbn);
+    public Book SearchByUserQuery(int isbn){
+        var book = this.find(isbn);
+        if (book == null) return null;
+        if(book.getStatus() == BookStatus.AVAILABLE){
+            return book;
+        } else {
+            return null;
+        }
+
     }
 
     @Override
     public Book find(int isbn) {
-        return bookDao.findByISBN(isbn);
+       return bookRepository.findByIsbn(isbn);
     }
 
     @Override
-    public void delete(int isbn) {
-        bookDao.delete(isbn);
+    @Transactional
+    public void delete(int isbn){
+        var book = this.find(isbn);
+        book.setStatus(BookStatus.REMOVED);
+        bookRepository.save(book);
     }
 
     @Override
-    public boolean returnBook(int isbn) {
-        var book = bookDao.findByISBN(isbn);
-        if(!book.getStatus().equals("b")){
-            return false;
-        }
-        book.setStatus("a");
-        bookDao.save(book);
-        return true;
+    @Transactional
+    public void returnBook(Book book){
+        book.setStatus(BookStatus.AVAILABLE);
+        this.save(book);
     }
 
     @Override
-    public boolean borrow(int isbn) {
-        var book = bookDao.findByISBN(isbn);
-        book.setStatus("b");
-        bookDao.save(book);
-        return true;
+    @Transactional
+    public void borrow(Book book){
+        book.setStatus(BookStatus.BORROWED);
+        this.save(book);
     }
 
-    @Override
-    public boolean borrowFirstTime(int isbn) {
-        var book = bookDao.findByISBN(isbn);
-        if (!book.getStatus().equals("a")) return false;
-        book.setStatus("b");
-        bookDao.save(book);
-        return true;
-    }
 }

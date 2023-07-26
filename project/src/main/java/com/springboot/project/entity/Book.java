@@ -22,15 +22,15 @@ public class Book {
     @Column(name="edition")
     private int edition;
 
-    @Column(name="status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private BookStatus status;
 
     public Book(String title, String author, String publisher, int edition) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.edition = edition;
-        status="a";
+        status = BookStatus.AVAILABLE;
     }
 
     public Book() {
@@ -76,12 +76,12 @@ public class Book {
         this.edition = edition;
     }
 
-    public String getStatus() {
+    public BookStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String  status) {
-        this.status = status;
+    public void setStatus(BookStatus bookStatus) {
+        this.status = bookStatus;
     }
 
     @Override

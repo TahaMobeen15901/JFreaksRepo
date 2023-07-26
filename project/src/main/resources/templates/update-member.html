@@ -12,6 +12,9 @@
   <body>
     <div class="container">
         <h3 class="my-4">Update</h3>
+        <div th:if="${ErrorMessage}" class="alert alert-danger">
+            <p th:text="${ErrorMessage}"></p>
+        </div>
         <form action="#" th:action="@{/active/update}"
               th:object="${Member}" method="POST" class="my-4">
             <label>Username</label>
@@ -19,7 +22,7 @@
             <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}">Username Validation error</p>
             <input type="hidden" th:field="*{enabled}">
             <label>Password</label>
-            <input type="text" class="form-control mb-4 w-25" placeholder="">
+            <input type="password" th:field="*{password}" class="form-control mb-4 w-25" placeholder="">
             <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}">Password Validation error</p>
             <label>Name</label>
             <input type="text" th:field="*{name}" class="form-control mb-4 w-25" placeholder="${Member.name}">
@@ -29,8 +32,8 @@
             <p th:if="${#fields.hasErrors('phone')}" class="text-danger" th:errors="*{phone}">Phone Number Validation error</p>
             <label>Date of Birth</label>
             <input type="date"  th:field="*{dob}" class="form-control mb-4 w-25">
-            <p th:if="${#fields.hasErrors('dob')}" class="text-danger" th:errors="*{dob}">Date Of Birth Validation error</
-            <button type="submit" class="btn btn-info col-2">Save</button>
+            <p th:if="${#fields.hasErrors('dob')}" class="text-danger" th:errors="*{dob}">Date Of Birth Validation error</p>
+            <p><button type="submit" class="btn btn-info col-2">Save</button></p>
 
         </form>
         <form action="#" th:action="@{/active/delete}" method="POST" class="my-4">
